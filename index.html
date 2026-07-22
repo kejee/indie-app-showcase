@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Alex | Indie App Developer - macOS & iOS Apps</title>
+  <title>Kejee Studio | macOS, iOS & Android 独立应用作品集</title>
   <meta name="description" content="独立开发者个人主页，专注于打造极致体验的 macOS、iOS 及多端跨平台应用。" />
   
   <!-- Modern Fonts -->
@@ -29,10 +29,10 @@
       <div class="nav-container">
         <a href="#" class="brand">
           <div class="brand-avatar">
-            <span class="avatar-text">A</span>
+            <span class="avatar-text">K</span>
           </div>
           <div class="brand-info">
-            <span class="brand-name">Alex Studio</span>
+            <span class="brand-name">Kejee Studio</span>
             <span class="brand-tag">Indie App Dev</span>
           </div>
         </a>
@@ -41,7 +41,7 @@
           <a href="#apps" class="nav-link active">作品集</a>
           <a href="#about" class="nav-link">关于我</a>
           <a href="#support" class="nav-link">技术支持</a>
-          <a href="https://github.com" target="_blank" rel="noopener" class="github-btn" title="GitHub">
+          <a href="https://github.com/kejee" target="_blank" rel="noopener" class="github-btn" title="GitHub">
             <i data-feather="github"></i>
             <span>GitHub</span>
           </a>
@@ -57,24 +57,24 @@
     <section class="hero-section">
       <div class="hero-badge">
         <span class="pulse-dot"></span>
-        <span>macOS & iOS 独立开发</span>
+        <span>macOS · iOS · Android 独立开发</span>
       </div>
       <h1 class="hero-title">
-        专注打造<span class="gradient-text">极致简约</span>与<span class="gradient-text">高效实用</span>的独立应用
+        专注打造<span class="gradient-text">极致简约</span>与<span class="gradient-text">纯粹好用</span>的独立应用
       </h1>
       <p class="hero-subtitle">
-        探索我的精选作品。从 macOS 效率利器到 iOS 优雅生活助手，每一款产品都经过精心雕琢与打磨。
+        探索我的精选作品。恪守“本地优先”与隐私保护原则，每一款产品都经过精心打磨。
       </p>
 
       <!-- Platform Stat Badges -->
       <div class="platform-stats">
         <div class="stat-pill">
           <i data-feather="command"></i>
-          <span>macOS 专属工具</span>
+          <span>macOS 原生工具</span>
         </div>
         <div class="stat-pill">
           <i data-feather="smartphone"></i>
-          <span>iOS 原生应用</span>
+          <span>iOS / iPadOS 应用</span>
         </div>
         <div class="stat-pill">
           <i data-feather="layers"></i>
@@ -91,132 +91,136 @@
     <section id="apps" class="apps-section">
       <div class="section-header">
         <h2 class="section-title">应用展厅 (Apps)</h2>
-        <p class="section-desc">探索所有精选作品，每个应用均支持独立下载、技术支持与隐私说明。</p>
+        <p class="section-desc">点击任意应用卡片，查看产品详情、下载地址、隐私协议与技术支持。</p>
       </div>
 
       <!-- App Grid Container -->
       <div class="apps-grid" id="appsGrid">
-        <!-- App Card 1: FocusPulse (Universal) -->
-        <article class="app-card" data-appid="focuspulse">
+        
+        <!-- App Card 1: LUMILumos (iOS / iPadOS) -->
+        <article class="app-card" data-appid="lumos">
           <div class="card-glass-glow" style="--glow-color: rgba(59, 130, 246, 0.25);"></div>
           <div class="app-card-header">
-            <div class="app-icon-wrapper theme-blue">
-              <i data-feather="clock"></i>
+            <div class="app-icon-wrapper logo-card-wrapper">
+              <img src="assets/logos/lumos.png" alt="LUMILumos Logo" class="app-logo-img" />
+            </div>
+            <div class="app-badges">
+              <div class="tag-group">
+                <span class="platform-tag tag-purple">iOS</span>
+                <span class="platform-tag tag-purple">iPadOS</span>
+                <span class="platform-tag tag-gray">v1.0.0</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="app-card-body">
+            <h3 class="app-title">LUMILumos 灵动长图</h3>
+            <p class="app-tagline">iOS / iPadOS 屏幕录制自动长图缝合工具，秒级无损生成高清长图。</p>
+            <ul class="app-highlights">
+              <li><i data-feather="check"></i> 屏幕录制一键触发，算法自动缝合</li>
+              <li><i data-feather="check"></i> 裸 BGRA 读写 + Metal 零拷贝加速</li>
+              <li><i data-feather="check"></i> 智能辨识导航栏与固定顶部/底部</li>
+            </ul>
+          </div>
+
+          <div class="app-card-footer">
+            <button class="btn btn-primary open-details-btn" data-appid="lumos">
+              <i data-feather="info"></i> 查看详情 & 下载
+            </button>
+            <div class="quick-links">
+              <button class="quick-link-btn open-privacy-btn" data-appid="lumos" title="隐私协议">
+                <i data-feather="shield"></i> 隐私
+              </button>
+              <button class="quick-link-btn open-support-btn" data-appid="lumos" title="技术支持">
+                <i data-feather="help-circle"></i> 支持
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- App Card 2: Diffty (macOS / iOS / iPadOS Universal) -->
+        <article class="app-card" data-appid="diffty">
+          <div class="card-glass-glow" style="--glow-color: rgba(139, 92, 246, 0.25);"></div>
+          <div class="app-card-header">
+            <div class="app-icon-wrapper logo-card-wrapper">
+              <img src="assets/logos/diffty.png" alt="Diffty Logo" class="app-logo-img" />
             </div>
             <div class="app-badges">
               <div class="tag-group">
                 <span class="platform-tag tag-blue">macOS</span>
                 <span class="platform-tag tag-purple">iOS</span>
-                <span class="platform-tag tag-gray">v2.4.0</span>
+                <span class="platform-tag tag-purple">iPadOS</span>
+                <span class="platform-tag tag-gray">v1.2.0</span>
               </div>
             </div>
           </div>
           
           <div class="app-card-body">
-            <h3 class="app-title">FocusPulse 专注脉冲</h3>
-            <p class="app-tagline">跨平台极简番茄钟与习惯追踪器，让时间沉淀为你的专注资产。</p>
+            <h3 class="app-title">Diffty 联动对比</h3>
+            <p class="app-tagline">macOS / iOS / iPadOS 跨平台两张图片联动同步对比利器。</p>
             <ul class="app-highlights">
-              <li><i data-feather="check"></i> iCloud 多端实时同步</li>
-              <li><i data-feather="check"></i> 适配 macOS 菜单栏与 iOS 灵动岛</li>
-              <li><i data-feather="check"></i> 离线数据优先 & 隐私无忧</li>
+              <li><i data-feather="check"></i> 滑块裁切与透明度叠加双对比模式</li>
+              <li><i data-feather="check"></i> 双图画布强同步：双指捏合/滚轮秒级同步放缩</li>
+              <li><i data-feather="check"></i> 支持拖拽文件直接入窗 (Drag & Drop)</li>
             </ul>
           </div>
 
           <div class="app-card-footer">
-            <button class="btn btn-primary open-details-btn" data-appid="focuspulse">
+            <button class="btn btn-primary open-details-btn" data-appid="diffty">
               <i data-feather="info"></i> 查看详情 & 下载
             </button>
             <div class="quick-links">
-              <button class="quick-link-btn open-privacy-btn" data-appid="focuspulse" title="隐私协议">
+              <button class="quick-link-btn open-privacy-btn" data-appid="diffty" title="隐私协议">
                 <i data-feather="shield"></i> 隐私
               </button>
-              <button class="quick-link-btn open-support-btn" data-appid="focuspulse" title="技术支持">
+              <button class="quick-link-btn open-support-btn" data-appid="diffty" title="技术支持">
                 <i data-feather="help-circle"></i> 支持
               </button>
             </div>
           </div>
         </article>
 
-        <!-- App Card 2: SwiftClip (macOS Only) -->
-        <article class="app-card" data-appid="swiftclip">
-          <div class="card-glass-glow" style="--glow-color: rgba(139, 92, 246, 0.25);"></div>
-          <div class="app-card-header">
-            <div class="app-icon-wrapper theme-purple">
-              <i data-feather="clipboard"></i>
-            </div>
-            <div class="app-badges">
-              <div class="tag-group">
-                <span class="platform-tag tag-blue">macOS 专属</span>
-                <span class="platform-tag tag-gray">v1.8.2</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="app-card-body">
-            <h3 class="app-title">SwiftClip 剪贴板大师</h3>
-            <p class="app-tagline">专为 macOS 打造的高效剪贴板历史记录管理与智能搜索工具。</p>
-            <ul class="app-highlights">
-              <li><i data-feather="check"></i> 快捷键秒级唤醒与格式清理</li>
-              <li><i data-feather="check"></i> 本地 SQLite 加密存储历史</li>
-              <li><i data-feather="check"></i> 智能富文本、图片与代码识别</li>
-            </ul>
-          </div>
-
-          <div class="app-card-footer">
-            <button class="btn btn-primary open-details-btn" data-appid="swiftclip">
-              <i data-feather="info"></i> 查看详情 & 下载
-            </button>
-            <div class="quick-links">
-              <button class="quick-link-btn open-privacy-btn" data-appid="swiftclip" title="隐私协议">
-                <i data-feather="shield"></i> 隐私
-              </button>
-              <button class="quick-link-btn open-support-btn" data-appid="swiftclip" title="技术支持">
-                <i data-feather="help-circle"></i> 支持
-              </button>
-            </div>
-          </div>
-        </article>
-
-        <!-- App Card 3: PocketNotes (iOS / Android) -->
-        <article class="app-card" data-appid="pocketnotes">
+        <!-- App Card 3: ZipVideo (iOS / iPad / Android) -->
+        <article class="app-card" data-appid="zipvideo">
           <div class="card-glass-glow" style="--glow-color: rgba(16, 185, 129, 0.25);"></div>
           <div class="app-card-header">
-            <div class="app-icon-wrapper theme-green">
-              <i data-feather="book-open"></i>
+            <div class="app-icon-wrapper logo-card-wrapper">
+              <img src="assets/logos/zipvideo.png" alt="ZipVideo Logo" class="app-logo-img" />
             </div>
             <div class="app-badges">
               <div class="tag-group">
                 <span class="platform-tag tag-purple">iOS</span>
                 <span class="platform-tag tag-green">Android</span>
-                <span class="platform-tag tag-gray">v3.1.0</span>
+                <span class="platform-tag tag-gray">v2.1.0</span>
               </div>
             </div>
           </div>
           
           <div class="app-card-body">
-            <h3 class="app-title">PocketNotes 掌心便签</h3>
-            <p class="app-tagline">轻量级 Markdown 离线卡片笔记，记录灵感与每日碎碎念。</p>
+            <h3 class="app-title">压点视频 ZipVideo</h3>
+            <p class="app-tagline">iOS / iPad / Android 极致监控级视频高压缩工具。</p>
             <ul class="app-highlights">
-              <li><i data-feather="check"></i> 端到端加密（E2EE）同步</li>
-              <li><i data-feather="check"></i> 支持 iOS Widget & Android 小组件</li>
-              <li><i data-feather="check"></i> 完全零广告，支持本地导出</li>
+              <li><i data-feather="check"></i> 监控级高压缩率算法，大幅节省存储空间</li>
+              <li><i data-feather="check"></i> 视频处理 100% 纯本地运行，零网络上传</li>
+              <li><i data-feather="check"></i> 零第三方 SDK 追踪，无广告干扰</li>
             </ul>
           </div>
 
           <div class="app-card-footer">
-            <button class="btn btn-primary open-details-btn" data-appid="pocketnotes">
+            <button class="btn btn-primary open-details-btn" data-appid="zipvideo">
               <i data-feather="info"></i> 查看详情 & 下载
             </button>
             <div class="quick-links">
-              <button class="quick-link-btn open-privacy-btn" data-appid="pocketnotes" title="隐私协议">
+              <button class="quick-link-btn open-privacy-btn" data-appid="zipvideo" title="隐私协议">
                 <i data-feather="shield"></i> 隐私
               </button>
-              <button class="quick-link-btn open-support-btn" data-appid="pocketnotes" title="技术支持">
+              <button class="quick-link-btn open-support-btn" data-appid="zipvideo" title="技术支持">
                 <i data-feather="help-circle"></i> 支持
               </button>
             </div>
           </div>
         </article>
+
       </div>
     </section>
 
@@ -225,17 +229,16 @@
       <div class="glass-card about-card">
         <div class="about-content">
           <div class="about-badge">ABOUT THE DEVELOPER</div>
-          <h2>你好，我是 Alex 👋</h2>
+          <h2>你好，我是 Kejee 👋</h2>
           <p>
-            一名热爱 Apple 生态的独立开发者。我专注于使用 <strong>Swift / SwiftUI / Kotlin Multiplatform</strong> 构建简洁、稳定且极具审美价值的软件产品。
+            一名热爱 Apple & 移动端生态的独立开发者。我专注于使用 <strong>Swift / SwiftUI / Kotlin Multiplatform</strong> 构建简洁、稳定且极具实用价值的独立应用。
           </p>
           <p>
-            我的设计理念是：<b>“软件应该像手工具一样，顺手、安静且尊重隐私。”</b> 所有应用均恪守本地优先与隐私保护原则。
+            我的设计原则是：<b>“工具应当安静、顺手且恪守隐私保护。”</b> 所有应用均支持离线与本地优先运行。
           </p>
           <div class="contact-methods">
-            <a href="mailto:alex@example.com" class="contact-pill"><i data-feather="mail"></i> alex@example.com</a>
-            <a href="https://twitter.com" target="_blank" rel="noopener" class="contact-pill"><i data-feather="twitter"></i> @AlexDev</a>
-            <a href="https://github.com" target="_blank" rel="noopener" class="contact-pill"><i data-feather="github"></i> GitHub Profile</a>
+            <a href="mailto:support@alexapps.dev" class="contact-pill"><i data-feather="mail"></i> 邮件联系</a>
+            <a href="https://github.com/kejee" target="_blank" rel="noopener" class="contact-pill"><i data-feather="github"></i> GitHub @kejee</a>
           </div>
         </div>
       </div>
@@ -251,7 +254,7 @@
             <p>每个应用均有独立的技术支持页面与 GitHub Issue 反馈通道。</p>
           </div>
         </div>
-        <a href="https://github.com" target="_blank" class="btn btn-outline">
+        <a href="https://github.com/kejee" target="_blank" class="btn btn-outline">
           <i data-feather="github"></i> 前往 GitHub 讨论区
         </a>
       </div>
@@ -261,8 +264,8 @@
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-left">
-          <p>© 2026 Alex Studio. All rights reserved.</p>
-          <p class="footer-subtext">Built with HTML/CSS & Deployed seamlessly on GitHub Pages.</p>
+          <p>© 2026 Kejee Studio. All rights reserved.</p>
+          <p class="footer-subtext">Deployed seamlessly on GitHub Pages.</p>
         </div>
         <div class="footer-links">
           <a href="#apps">作品集</a>
@@ -282,7 +285,7 @@
 
       <!-- Modal Header Banner -->
       <div class="modal-header-banner">
-        <div class="modal-app-icon" id="modalAppIcon">
+        <div class="modal-app-icon custom-logo-wrapper" id="modalAppIcon">
           <i data-feather="box"></i>
         </div>
         <div class="modal-app-meta">
@@ -309,7 +312,7 @@
         
         <!-- Tab 1: Overview -->
         <div class="modal-tab-pane active" id="pane-overview">
-          <h3><i data-feather="image"></i> 产品截图展示</h3>
+          <h3><i data-feather="image"></i> 产品细节预览</h3>
           <div class="screenshots-carousel" id="modalScreenshots">
             <!-- Dynamic Screenshot Placeholders -->
           </div>
@@ -366,7 +369,7 @@
             <div class="issue-card">
               <div class="issue-icon"><i data-feather="github"></i></div>
               <h4>GitHub Issues 提交流程</h4>
-              <p>如果您拥有 GitHub 账号，推荐直接前往项目开源或反馈仓库提交 Issue。</p>
+              <p>如果您拥有 GitHub 账号，推荐直接前往该 App 的 GitHub 仓库提交 Issue。</p>
               <a href="#" target="_blank" rel="noopener" class="btn btn-primary" id="modalGithubIssueLink">
                 <i data-feather="external-link"></i> 在 GitHub 提交 Issue
               </a>
@@ -375,8 +378,8 @@
             <div class="issue-card">
               <div class="issue-icon"><i data-feather="mail"></i></div>
               <h4>邮件直接反馈</h4>
-              <p>无法使用 GitHub？可以直接给开发者发送反馈邮件，我们会自动整理并跟进。</p>
-              <a href="mailto:feedback@alexapps.dev" class="btn btn-secondary" id="modalEmailFeedbackLink">
+              <p>无法使用 GitHub？可以直接发送反馈邮件，开发者会跟进处理。</p>
+              <a href="mailto:support@alexapps.dev" class="btn btn-secondary" id="modalEmailFeedbackLink">
                 <i data-feather="send"></i> 发送反馈邮件
               </a>
             </div>

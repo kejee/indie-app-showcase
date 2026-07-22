@@ -1,137 +1,128 @@
 /**
  * Alex Studio - Indie App Showcase JavaScript Logic
- * Handling Filter Tabs, App Data Models, Hash Routing, and Modal Interactions.
+ * App Registry for Lumos, Diffty, and ZipVideo.
  */
 
 // ==========================================================================
-// 1. Apps Data Registry
+// 1. Real Apps Data Registry
 // ==========================================================================
 const APPS_DATA = {
-  focuspulse: {
-    id: 'focuspulse',
-    name: 'FocusPulse 专注脉冲',
-    tagline: '跨平台极简番茄钟与习惯追踪器，让时间沉淀为你的专注资产。',
-    category: 'universal',
-    version: 'v2.4.0',
-    iconClass: 'theme-blue',
-    iconName: 'clock',
-    badges: ['macOS / iOS 通用', 'SwiftUI', 'iCloud Sync'],
+  lumos: {
+    id: 'lumos',
+    name: 'LUMILumos 灵动长图',
+    tagline: 'iOS / iPadOS 屏幕录制自动长图缝合工具，秒级无损生成高清长图。',
+    logo: 'assets/logos/lumos.png',
+    version: 'v1.0.0',
+    badges: ['iOS', 'iPadOS', 'Metal 加速', '零拷贝'],
     highlights: [
-      'iCloud 多端实时同步与状态备份',
-      '适配 macOS 菜单栏与 iOS 灵动岛 (Live Activities)',
-      '离线数据优先，绝不收集任何个人敏感行为数据'
+      '屏幕录制一键触发，自动提取关键帧与算法缝合',
+      '裸 BGRA 读写 + Metal 纹理零拷贝渲染，流畅不发热',
+      '智能识别导航栏与底部固定元素，缝合精准无重影'
     ],
     downloads: [
-      { type: 'macOS / iOS', name: 'App Store 下载', desc: '支持 iPhone, iPad & Mac (Apple Silicon)', icon: 'apple', url: 'https://apps.apple.com', primary: true },
-      { type: 'macOS', name: 'Direct .DMG', desc: 'macOS 独立签名安装包 (v2.4.0)', icon: 'download', url: '#' },
-      { type: 'Beta', name: 'TestFlight 预发布版', desc: '参与下一代 Beta 功能测试', icon: 'zap', url: '#' }
+      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 15.0+)', icon: 'smartphone', url: 'https://apps.apple.com', primary: true },
+      { name: 'TestFlight 内部测试', desc: '体验全新自动化裁切功能', icon: 'zap', url: '#' }
     ],
     faq: [
-      { q: 'FocusPulse 是否需要购买订阅？', a: '支持免费基础功能。高级版本采用一次性买断制（Lifetime Pass），绝无强制按月订阅。' },
-      { q: '我的专注计时数据存储在哪里？', a: '所有数据均存储在您的设备本地以及您个人的私有 iCloud Container 中，开发者无法调阅任何记录。' }
+      { q: '录屏产生的视频文件会占用大量手机空间吗？', a: '不会。LUMILumos 使用内存零拷贝帧流技术，拼接完成后临时录屏缓存会自动彻底删除。' },
+      { q: '长图缝合失败或出现重复怎么办？', a: '可以在调整界面手动设置顶部/底部忽略区域，重新触发自动缝合计算。' }
     ],
     privacy: `
-      <h4>1. 概述与原则</h4>
-      <p>FocusPulse 极其重视您的个人隐私。本应用专为离线与个人专注设计，恪守“本地优先”原则。</p>
+      <h4>1. 核心隐私承诺：100% 本地处理</h4>
+      <p>LUMILumos 是一款纯本地的长图拼接工具。我们极其重视您的屏幕隐私。</p>
 
-      <h4>2. 数据收集与存储</h4>
-      <p>我们<strong>不会收集、储存或传输</strong>您的任何个人身份信息、计时习惯或设备诊断数据。</p>
+      <h4>2. 屏幕录制与相册访问</h4>
       <ul>
-        <li><b>专注记录与统计：</b>仅保存在您的设备本地。</li>
-        <li><b>多端同步：</b>若开启 iCloud 同步，数据将通过 Apple 官方 Encrypted iCloud 传输，仅在您个人的 Apple ID 设备间同步。</li>
+        <li><b>屏幕录制权限：</b>仅在您手动触发录屏长图拼接时使用，录屏画面直接在设备内存中转为长图，<strong>绝不会上传至任何服务器</strong>。</li>
+        <li><b>相册存储权限：</b>用于将生成的最终长图保存至您的系统相册。</li>
       </ul>
 
-      <h4>3. 第三方 SDK 与跟踪</h4>
-      <p>FocusPulse 零集成第三方广告 SDK、零跟踪代码（No Analytics Tracking）。</p>
+      <h4>3. 网络与跟踪说明</h4>
+      <p>应用完全支持离线运行，零集成任何第三方分析、广告或追踪 SDK。</p>
 
-      <h4>4. 联系与协议变更</h4>
-      <p>如对本隐私协议有任何疑问，请发送邮件至 <a href="mailto:privacy@alexapps.dev">privacy@alexapps.dev</a>。</p>
+      <h4>4. 技术支持联系</h4>
+      <p>如有任何疑问或意见反馈，请联系开发者邮件：<a href="mailto:support@alexapps.dev">support@alexapps.dev</a>。</p>
     `,
-    githubIssueUrl: 'https://github.com/issues/new'
+    githubIssueUrl: 'https://github.com/kejee/LUMILumos-iOS/issues/new'
   },
 
-  swiftclip: {
-    id: 'swiftclip',
-    name: 'SwiftClip 剪贴板大师',
-    tagline: '专为 macOS 打造的高效剪贴板历史记录管理与智能搜索工具。',
-    category: 'macos',
-    version: 'v1.8.2',
-    iconClass: 'theme-purple',
-    iconName: 'clipboard',
-    badges: ['macOS 专属', 'SQLite Encrypted', 'Keyboard Native'],
+  diffty: {
+    id: 'diffty',
+    name: 'Diffty 联动对比',
+    tagline: 'macOS / iOS / iPadOS 跨平台双图联动同步对比利器。',
+    logo: 'assets/logos/diffty.png',
+    version: 'v1.2.0',
+    badges: ['macOS', 'iOS', 'iPadOS', 'Universal', 'SwiftUI'],
     highlights: [
-      '全局快捷键 ⌥+V 秒级呼出与富文本格式清理',
-      '本地 SQLite 加密存储，支持搜索历史记录与敏感词过滤',
-      '智能识别剪贴板图片、代码片段、颜色值与网址链接'
+      '滑块分割裁切与透明度叠加双对比模式，细节毕现',
+      '双图画布强同步：双指捏合或鼠标滚轮秒级同步缩放与平移',
+      '支持 Drag & Drop 拖拽文件入窗与 macOS 原生快捷键'
     ],
     downloads: [
-      { type: 'macOS', name: 'Mac App Store 下载', desc: '支持 macOS 12.0 或更高版本', icon: 'apple', url: 'https://apps.apple.com', primary: true },
-      { type: 'macOS', name: 'Direct DMG 下载', desc: '经过 Apple 公证的独立 Build (v1.8.2)', icon: 'download', url: '#' }
+      { name: 'Mac App Store', desc: '支持 macOS 12.0+ (Universal Binary)', icon: 'command', url: 'https://apps.apple.com', primary: true },
+      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 15.0+)', icon: 'smartphone', url: 'https://apps.apple.com', primary: false },
+      { name: 'macOS Direct .DMG', desc: '独立签名公证版 (v1.2.0)', icon: 'download', url: '#' }
     ],
     faq: [
-      { q: 'SwiftClip 会占用很多内存吗？', a: '不会。全应用基于 Swift 原生开发，日常静默运行后台仅占用约 25MB 内存。' },
-      { q: '剪贴板中的密码会被记录吗？', a: 'SwiftClip 默认会自动过滤来自 1Password、Bitwarden 等密码管理软件复制的内容。' }
+      { q: '两张对比图片尺寸不一致怎么办？', a: 'Diffty 控制条提供“一键对齐”按钮，会自动对齐两图中心点并按等比例拉伸缩放。' },
+      { q: 'macOS 端支持直接拖拽图片吗？', a: '支持。您可以直接从 Finder 或其他软件中把两张图片拖入窗口立即开启对比。' }
     ],
     privacy: `
-      <h4>1. 剪贴板数据安全声明</h4>
-      <p>SwiftClip 需要读取系统剪贴板以提供历史记录功能。所有剪贴内容<strong>100% 仅存于您的 Mac 本地磁盘</strong>。</p>
+      <h4>1. 图像数据安全声明</h4>
+      <p>Diffty 是一款专注于本地视觉对比的工具软件。所有导入的对比图像<strong>100% 仅保存在您的设备内存中</strong>。</p>
 
-      <h4>2. 敏感数据保护</h4>
-      <p>应用内置自动识别规则，检测到 Password 类型的敏感复制事件时会自动跳过存储。您可以随时在设置中一键清空全部历史记录。</p>
+      <h4>2. 存储与网络权限</h4>
+      <p>应用仅在您打开文件选择器或拖入图片时读取该图像文件，对比结束后关闭窗口即释放内存，绝无任何后门网络请求。</p>
 
-      <h4>3. 网络连接</h4>
-      <p>SwiftClip 完全支持断网离线使用，不会发起任何未经授权的外部网络请求。</p>
-
-      <h4>4. 支持联系</h4>
-      <p>隐私问题可联系开发者：<a href="mailto:support@alexapps.dev">support@alexapps.dev</a>。</p>
+      <h4>3. 联系开发者</h4>
+      <p>反馈邮件：<a href="mailto:support@alexapps.dev">support@alexapps.dev</a>。</p>
     `,
-    githubIssueUrl: 'https://github.com/issues/new'
+    githubIssueUrl: 'https://github.com/kejee/Diffty/issues/new'
   },
 
-  pocketnotes: {
-    id: 'pocketnotes',
-    name: 'PocketNotes 掌心便签',
-    tagline: '轻量级 Markdown 离线卡片笔记，记录灵感与每日碎碎念。',
-    category: 'cross-platform',
-    version: 'v3.1.0',
-    iconClass: 'theme-green',
-    iconName: 'book-open',
-    badges: ['iOS / Android 双端', 'Markdown', 'E2EE Sync'],
+  zipvideo: {
+    id: 'zipvideo',
+    name: '压点视频 ZipVideo',
+    tagline: 'iOS / iPad / Android 上极致的监控级视频高压缩工具。',
+    logo: 'assets/logos/zipvideo.png',
+    version: 'v2.1.0',
+    badges: ['iOS', 'iPadOS', 'Android', '纯本地', '无广告'],
     highlights: [
-      '端到端加密（E2EE）同步，保障每条笔记安全',
-      '支持 iOS Widget 桌面小组件 & Android 桌面小部件',
-      '完全零广告，支持本地导出'
+      '监控级高压缩率算法，大幅释放设备存储空间',
+      '视频处理 100% 纯本地运行，视频数据永远不出设备',
+      '零第三方 SDK 追踪，无广告干扰，支持批量压缩'
     ],
     downloads: [
-      { type: 'iOS', name: 'App Store (iOS / iPadOS)', desc: '支持 iOS 15.0+', icon: 'apple', url: 'https://apps.apple.com', primary: true },
-      { type: 'Android', name: 'Google Play 下载', desc: '支持 Android 8.0+', icon: 'smartphone', url: '#' },
-      { type: 'Android', name: 'Direct APK 下载', desc: '无 Google 服务框架通用 APK', icon: 'download', url: '#' }
+      { name: 'App Store (iOS / iPadOS)', desc: '支持 iOS 15.0 或更高版本', icon: 'apple', url: 'https://apps.apple.com', primary: true },
+      { name: 'Google Play (Android)', desc: '支持 Android 8.0 或更高版本', icon: 'smartphone', url: 'https://play.google.com', primary: false },
+      { name: 'Android Direct APK', desc: '无 Google 框架通用安装包', icon: 'download', url: '#' }
     ],
     faq: [
-      { q: '如何开启端到端加密？', a: '在设置中设置您的主加密密钥（Master Key）即可开启 E2EE。请妥善保存此密钥，开发者无法帮您找回。' },
-      { q: '支持导出数据吗？', a: '支持随时一键将所有笔记打包导出为标准 Markdown .zip 文件。' }
+      { q: '视频压缩会导致画质严重损坏吗？', a: 'ZipVideo 采用智能帧率与码率压点算法，在大幅降低体积的同时最大化保留人眼视觉清晰度。' },
+      { q: '压缩视频需要上传到服务器吗？', a: '完全不需要！所有压缩计算全部在您的手机 CPU/GPU 本地完成，哪怕在断网飞行模式下也能流畅使用。' }
     ],
     privacy: `
-      <h4>1. 隐私政策概要</h4>
-      <p>PocketNotes 是一款以保护灵感 privacy 为核心的笔记应用。</p>
+      <h4>1. 核心隐私承诺：视频处理 100% 纯本地</h4>
+      <table style="width:100%; margin: 12px 0; border-collapse:collapse; font-size:0.85rem; color:var(--text-secondary);">
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:6px;">🏠 <b>纯本地处理</b></td><td style="padding:6px;">所有视频处理在您的设备本地完成，不依赖远程服务器</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:6px;">☁️ <b>零数据上传</b></td><td style="padding:6px;">视频文件、压缩参数、处理结果等不会上传至任何服务器</td></tr>
+        <tr style="border-bottom:1px solid rgba(255,255,255,0.1);"><td style="padding:6px;">📡 <b>无网络请求</b></td><td style="padding:6px;">压缩运行期间不发起网络请求，视频数据不上网</td></tr>
+        <tr><td style="padding:6px;">🛡️ <b>无第三方追踪</b></td><td style="padding:6px;">不集成数据分析、用户追踪或广告推送 SDK</td></tr>
+      </table>
 
-      <h4>2. 笔记内容处理</h4>
-      <p>您的笔记内容在传输与存储过程中均经过 AES-256 加密。服务器端仅存储密文，无解密密钥。</p>
+      <h4>2. 信息收集与使用说明</h4>
+      <p><b>存储权限（相册/媒体文件）：</b>仅用于读取您选择压缩的视频文件，并将压缩后的新视频保存回相册。临时文件在压缩任务完成后会自动彻底删除。</p>
 
-      <h4>3. 权限说明</h4>
-      <p>应用仅要求必要的本地存储读写权限，不会调阅您的通讯录、相册或位置信息。</p>
+      <h4>3. 支持与联系</h4>
+      <p>官方文档与技术支持支持双语。联络邮箱：<a href="mailto:support@alexapps.dev">support@alexapps.dev</a>。</p>
     `,
-    githubIssueUrl: 'https://github.com/issues/new'
+    githubIssueUrl: 'https://github.com/kejee/zip_video/issues/new'
   }
 };
 
 // ==========================================================================
 // 2. DOM Elements
 // ==========================================================================
-const appsGrid = document.getElementById('appsGrid');
-const filterBtns = document.querySelectorAll('.tab-btn');
-
-// Modal Elements
 const appModal = document.getElementById('appModal');
 const modalCloseBtn = document.getElementById('modalCloseBtn');
 const modalAppIcon = document.getElementById('modalAppIcon');
@@ -167,9 +158,9 @@ function openAppModal(appId, targetTab = 'overview') {
   modalAppVersion.textContent = app.version;
   modalAppTagline.textContent = app.tagline;
   
-  // Icon Theme
-  modalAppIcon.className = `modal-app-icon ${app.iconClass}`;
-  modalAppIcon.innerHTML = `<i data-feather="${app.iconName}"></i>`;
+  // Icon Image
+  modalAppIcon.className = `modal-app-icon custom-logo-wrapper`;
+  modalAppIcon.innerHTML = `<img src="${app.logo}" alt="${app.name}" class="app-logo-img" />`;
 
   // Badges
   modalAppBadges.innerHTML = app.badges.map(b => `<span class="platform-tag tag-blue">${b}</span>`).join(' ');
@@ -179,9 +170,9 @@ function openAppModal(appId, targetTab = 'overview') {
 
   // Screenshots Carousel (Mockups)
   modalScreenshots.innerHTML = `
-    <div class="screenshot-mockup"><i data-feather="monitor"></i><span>应用主界面 Mockup 1</span></div>
-    <div class="screenshot-mockup"><i data-feather="sliders"></i><span>个性化设置界面 Mockup 2</span></div>
-    <div class="screenshot-mockup"><i data-feather="layers"></i><span>多端同步展示 Mockup 3</span></div>
+    <div class="screenshot-mockup"><i data-feather="image"></i><span>应用主界面</span></div>
+    <div class="screenshot-mockup"><i data-feather="sliders"></i><span>核心功能设置</span></div>
+    <div class="screenshot-mockup"><i data-feather="check-circle"></i><span>处理结果展示</span></div>
   `;
 
   // Downloads Grid
@@ -296,13 +287,13 @@ document.addEventListener('click', (e) => {
 });
 
 // ==========================================================================
-// 5. Hash Routing Support (Critical for App Store Privacy URL Audits)
+// 4. Hash Routing Support (Critical for App Store Privacy URL Audits)
 // ==========================================================================
 function checkHashRoute() {
   const hash = window.location.hash;
   if (!hash) return;
 
-  // Formats: #privacy-focuspulse , #support-swiftclip , #app-focuspulse
+  // Formats: #privacy-lumos , #privacy-diffty , #privacy-zipvideo
   if (hash.startsWith('#privacy-')) {
     const appId = hash.replace('#privacy-', '');
     if (APPS_DATA[appId]) openAppModal(appId, 'privacy');
@@ -338,7 +329,7 @@ if (mobileMenuBtn) {
 }
 
 // ==========================================================================
-// 6. Initialization
+// 5. Initialization
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => {
   if (window.feather) {
