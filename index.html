@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex | Indie App Developer - macOS & iOS Apps</title>
+  <meta name="description" content="独立开发者个人主页，专注于打造极致体验的 macOS、iOS 及多端跨平台应用。" />
+  
+  <!-- Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+  
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Ambient Glow Backgrounds -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <!-- Main Container -->
+  <div class="app-layout">
+    
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="nav-container">
+        <a href="#" class="brand">
+          <div class="brand-avatar">
+            <span class="avatar-text">A</span>
+          </div>
+          <div class="brand-info">
+            <span class="brand-name">Alex Studio</span>
+            <span class="brand-tag">Indie App Dev</span>
+          </div>
+        </a>
+
+        <nav class="nav-links">
+          <a href="#apps" class="nav-link active">作品集</a>
+          <a href="#about" class="nav-link">关于我</a>
+          <a href="#support" class="nav-link">技术支持</a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="github-btn" title="GitHub">
+            <i data-feather="github"></i>
+            <span>GitHub</span>
+          </a>
+        </nav>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation">
+          <i data-feather="menu"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>macOS & iOS 独立开发</span>
+      </div>
+      <h1 class="hero-title">
+        专注打造<span class="gradient-text">极致简约</span>与<span class="gradient-text">高效实用</span>的独立应用
+      </h1>
+      <p class="hero-subtitle">
+        探索我的精选作品。从 macOS 效率利器到 iOS 优雅生活助手，每一款产品都经过精心雕琢与打磨。
+      </p>
+
+      <!-- Platform Stat Badges -->
+      <div class="platform-stats">
+        <div class="stat-pill">
+          <i data-feather="command"></i>
+          <span>macOS 专属工具</span>
+        </div>
+        <div class="stat-pill">
+          <i data-feather="smartphone"></i>
+          <span>iOS 原生应用</span>
+        </div>
+        <div class="stat-pill">
+          <i data-feather="layers"></i>
+          <span>Universal 通用端</span>
+        </div>
+        <div class="stat-pill">
+          <i data-feather="repeat"></i>
+          <span>iOS / Android 双端</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apps Showcase Section -->
+    <section id="apps" class="apps-section">
+      <div class="section-header">
+        <h2 class="section-title">应用展厅 (Apps)</h2>
+        <p class="section-desc">探索所有精选作品，每个应用均支持独立下载、技术支持与隐私说明。</p>
+      </div>
+
+      <!-- App Grid Container -->
+      <div class="apps-grid" id="appsGrid">
+        <!-- App Card 1: FocusPulse (Universal) -->
+        <article class="app-card" data-appid="focuspulse">
+          <div class="card-glass-glow" style="--glow-color: rgba(59, 130, 246, 0.25);"></div>
+          <div class="app-card-header">
+            <div class="app-icon-wrapper theme-blue">
+              <i data-feather="clock"></i>
+            </div>
+            <div class="app-badges">
+              <div class="tag-group">
+                <span class="platform-tag tag-blue">macOS</span>
+                <span class="platform-tag tag-purple">iOS</span>
+                <span class="platform-tag tag-gray">v2.4.0</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="app-card-body">
+            <h3 class="app-title">FocusPulse 专注脉冲</h3>
+            <p class="app-tagline">跨平台极简番茄钟与习惯追踪器，让时间沉淀为你的专注资产。</p>
+            <ul class="app-highlights">
+              <li><i data-feather="check"></i> iCloud 多端实时同步</li>
+              <li><i data-feather="check"></i> 适配 macOS 菜单栏与 iOS 灵动岛</li>
+              <li><i data-feather="check"></i> 离线数据优先 & 隐私无忧</li>
+            </ul>
+          </div>
+
+          <div class="app-card-footer">
+            <button class="btn btn-primary open-details-btn" data-appid="focuspulse">
+              <i data-feather="info"></i> 查看详情 & 下载
+            </button>
+            <div class="quick-links">
+              <button class="quick-link-btn open-privacy-btn" data-appid="focuspulse" title="隐私协议">
+                <i data-feather="shield"></i> 隐私
+              </button>
+              <button class="quick-link-btn open-support-btn" data-appid="focuspulse" title="技术支持">
+                <i data-feather="help-circle"></i> 支持
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- App Card 2: SwiftClip (macOS Only) -->
+        <article class="app-card" data-appid="swiftclip">
+          <div class="card-glass-glow" style="--glow-color: rgba(139, 92, 246, 0.25);"></div>
+          <div class="app-card-header">
+            <div class="app-icon-wrapper theme-purple">
+              <i data-feather="clipboard"></i>
+            </div>
+            <div class="app-badges">
+              <div class="tag-group">
+                <span class="platform-tag tag-blue">macOS 专属</span>
+                <span class="platform-tag tag-gray">v1.8.2</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="app-card-body">
+            <h3 class="app-title">SwiftClip 剪贴板大师</h3>
+            <p class="app-tagline">专为 macOS 打造的高效剪贴板历史记录管理与智能搜索工具。</p>
+            <ul class="app-highlights">
+              <li><i data-feather="check"></i> 快捷键秒级唤醒与格式清理</li>
+              <li><i data-feather="check"></i> 本地 SQLite 加密存储历史</li>
+              <li><i data-feather="check"></i> 智能富文本、图片与代码识别</li>
+            </ul>
+          </div>
+
+          <div class="app-card-footer">
+            <button class="btn btn-primary open-details-btn" data-appid="swiftclip">
+              <i data-feather="info"></i> 查看详情 & 下载
+            </button>
+            <div class="quick-links">
+              <button class="quick-link-btn open-privacy-btn" data-appid="swiftclip" title="隐私协议">
+                <i data-feather="shield"></i> 隐私
+              </button>
+              <button class="quick-link-btn open-support-btn" data-appid="swiftclip" title="技术支持">
+                <i data-feather="help-circle"></i> 支持
+              </button>
+            </div>
+          </div>
+        </article>
+
+        <!-- App Card 3: PocketNotes (iOS / Android) -->
+        <article class="app-card" data-appid="pocketnotes">
+          <div class="card-glass-glow" style="--glow-color: rgba(16, 185, 129, 0.25);"></div>
+          <div class="app-card-header">
+            <div class="app-icon-wrapper theme-green">
+              <i data-feather="book-open"></i>
+            </div>
+            <div class="app-badges">
+              <div class="tag-group">
+                <span class="platform-tag tag-purple">iOS</span>
+                <span class="platform-tag tag-green">Android</span>
+                <span class="platform-tag tag-gray">v3.1.0</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="app-card-body">
+            <h3 class="app-title">PocketNotes 掌心便签</h3>
+            <p class="app-tagline">轻量级 Markdown 离线卡片笔记，记录灵感与每日碎碎念。</p>
+            <ul class="app-highlights">
+              <li><i data-feather="check"></i> 端到端加密（E2EE）同步</li>
+              <li><i data-feather="check"></i> 支持 iOS Widget & Android 小组件</li>
+              <li><i data-feather="check"></i> 完全零广告，支持本地导出</li>
+            </ul>
+          </div>
+
+          <div class="app-card-footer">
+            <button class="btn btn-primary open-details-btn" data-appid="pocketnotes">
+              <i data-feather="info"></i> 查看详情 & 下载
+            </button>
+            <div class="quick-links">
+              <button class="quick-link-btn open-privacy-btn" data-appid="pocketnotes" title="隐私协议">
+                <i data-feather="shield"></i> 隐私
+              </button>
+              <button class="quick-link-btn open-support-btn" data-appid="pocketnotes" title="技术支持">
+                <i data-feather="help-circle"></i> 支持
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="glass-card about-card">
+        <div class="about-content">
+          <div class="about-badge">ABOUT THE DEVELOPER</div>
+          <h2>你好，我是 Alex 👋</h2>
+          <p>
+            一名热爱 Apple 生态的独立开发者。我专注于使用 <strong>Swift / SwiftUI / Kotlin Multiplatform</strong> 构建简洁、稳定且极具审美价值的软件产品。
+          </p>
+          <p>
+            我的设计理念是：<b>“软件应该像手工具一样，顺手、安静且尊重隐私。”</b> 所有应用均恪守本地优先与隐私保护原则。
+          </p>
+          <div class="contact-methods">
+            <a href="mailto:alex@example.com" class="contact-pill"><i data-feather="mail"></i> alex@example.com</a>
+            <a href="https://twitter.com" target="_blank" rel="noopener" class="contact-pill"><i data-feather="twitter"></i> @AlexDev</a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="contact-pill"><i data-feather="github"></i> GitHub Profile</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Overview Banner -->
+    <section id="support" class="support-banner-section">
+      <div class="glass-card support-card">
+        <div class="support-info">
+          <i data-feather="life-buoy" class="support-icon"></i>
+          <div>
+            <h3>需要帮助或想要提出建议？</h3>
+            <p>每个应用均有独立的技术支持页面与 GitHub Issue 反馈通道。</p>
+          </div>
+        </div>
+        <a href="https://github.com" target="_blank" class="btn btn-outline">
+          <i data-feather="github"></i> 前往 GitHub 讨论区
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-left">
+          <p>© 2026 Alex Studio. All rights reserved.</p>
+          <p class="footer-subtext">Built with HTML/CSS & Deployed seamlessly on GitHub Pages.</p>
+        </div>
+        <div class="footer-links">
+          <a href="#apps">作品集</a>
+          <a href="#about">关于作者</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- App Detail / Support / Privacy Modal System -->
+  <div class="modal-overlay" id="appModal" aria-hidden="true">
+    <div class="modal-container glass-card">
+      <button class="modal-close-btn" id="modalCloseBtn" aria-label="关闭窗口">
+        <i data-feather="x"></i>
+      </button>
+
+      <!-- Modal Header Banner -->
+      <div class="modal-header-banner">
+        <div class="modal-app-icon" id="modalAppIcon">
+          <i data-feather="box"></i>
+        </div>
+        <div class="modal-app-meta">
+          <div class="modal-title-row">
+            <h2 id="modalAppTitle">App Title</h2>
+            <span class="version-tag" id="modalAppVersion">v1.0.0</span>
+          </div>
+          <p class="modal-app-tagline" id="modalAppTagline">App Tagline goes here</p>
+          <div class="modal-badges" id="modalAppBadges"></div>
+        </div>
+      </div>
+
+      <!-- Modal Navigation Tabs -->
+      <div class="modal-nav-tabs">
+        <button class="modal-tab active" data-tab="overview"><i data-feather="grid"></i> 应用概览</button>
+        <button class="modal-tab" data-tab="download"><i data-feather="download"></i> 下载地址</button>
+        <button class="modal-tab" data-tab="support"><i data-feather="help-circle"></i> 技术支持 & FAQ</button>
+        <button class="modal-tab" data-tab="privacy"><i data-feather="shield"></i> 隐私协议</button>
+        <button class="modal-tab" data-tab="issues"><i data-feather="message-square"></i> 提 Issue / 反馈</button>
+      </div>
+
+      <!-- Modal Content Body -->
+      <div class="modal-body-content">
+        
+        <!-- Tab 1: Overview -->
+        <div class="modal-tab-pane active" id="pane-overview">
+          <h3><i data-feather="image"></i> 产品截图展示</h3>
+          <div class="screenshots-carousel" id="modalScreenshots">
+            <!-- Dynamic Screenshot Placeholders -->
+          </div>
+
+          <h3><i data-feather="star"></i> 核心功能特色</h3>
+          <ul class="features-list" id="modalFeaturesList">
+            <!-- Dynamic Features -->
+          </ul>
+        </div>
+
+        <!-- Tab 2: Download Links -->
+        <div class="modal-tab-pane" id="pane-download">
+          <h3><i data-feather="download-cloud"></i> 官方下载渠道</h3>
+          <p class="text-muted">请根据您的设备选择最合适的安装方式：</p>
+          <div class="download-grid" id="modalDownloadGrid">
+            <!-- Dynamic Downloads (App Store, Direct DMG, TestFlight, etc.) -->
+          </div>
+        </div>
+
+        <!-- Tab 3: Support & FAQ -->
+        <div class="modal-tab-pane" id="pane-support">
+          <h3><i data-feather="help-circle"></i> 常见问题 (FAQ)</h3>
+          <div class="faq-accordion" id="modalFaqList">
+            <!-- Dynamic FAQ -->
+          </div>
+
+          <div class="support-contact-box">
+            <h4>技术支持联系方式</h4>
+            <p>如果您遇到了故障或者有合作想法，欢迎随时通过邮件联系开发者：</p>
+            <a href="mailto:support@alexapps.dev" class="btn btn-secondary" id="modalSupportEmail">
+              <i data-feather="mail"></i> 发送邮件给支持团队
+            </a>
+          </div>
+        </div>
+
+        <!-- Tab 4: Privacy Policy (Apple & Play Store Compliant) -->
+        <div class="modal-tab-pane" id="pane-privacy">
+          <div class="privacy-header">
+            <h3><i data-feather="shield"></i> 隐私协议 (Privacy Policy)</h3>
+            <span class="update-date" id="modalPrivacyUpdate">更新于: 2026年7月</span>
+          </div>
+          
+          <div class="privacy-document" id="modalPrivacyContent">
+            <!-- Dynamic Privacy Policy Content -->
+          </div>
+        </div>
+
+        <!-- Tab 5: Submit Issues / Feedback -->
+        <div class="modal-tab-pane" id="pane-issues">
+          <h3><i data-feather="github"></i> 提交 Issue 与功能建议</h3>
+          <p class="text-muted">每一条反馈都是推动软件变得更好的动力。您可以通过以下方式提交：</p>
+          
+          <div class="issue-options-grid">
+            <div class="issue-card">
+              <div class="issue-icon"><i data-feather="github"></i></div>
+              <h4>GitHub Issues 提交流程</h4>
+              <p>如果您拥有 GitHub 账号，推荐直接前往项目开源或反馈仓库提交 Issue。</p>
+              <a href="#" target="_blank" rel="noopener" class="btn btn-primary" id="modalGithubIssueLink">
+                <i data-feather="external-link"></i> 在 GitHub 提交 Issue
+              </a>
+            </div>
+
+            <div class="issue-card">
+              <div class="issue-icon"><i data-feather="mail"></i></div>
+              <h4>邮件直接反馈</h4>
+              <p>无法使用 GitHub？可以直接给开发者发送反馈邮件，我们会自动整理并跟进。</p>
+              <a href="mailto:feedback@alexapps.dev" class="btn btn-secondary" id="modalEmailFeedbackLink">
+                <i data-feather="send"></i> 发送反馈邮件
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

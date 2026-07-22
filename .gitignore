@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that may be created by the OS
+.Spotlight-V100
+.Trashes
+
+# Editor & IDE Configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs & Temp
+*.log
+tmp/
+dist/
+node_modules/
