@@ -50,7 +50,7 @@ const APPS_DATA = {
 1. **新建仓库**：在 GitHub 创建一个新的仓库（例如名为 `portfolio` 或 `yourname.github.io`）。
 2. **推送代码**：
    ```bash
-   cd /Users/apple/Documents/ag/indie-app-showcase
+   cd indie-app-showcase
    git init
    git add .
    git commit -m "feat: initial commit for indie app showcase website"
