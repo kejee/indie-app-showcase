@@ -41,7 +41,7 @@ const APPS_DATA = {
       <p>应用完全支持离线运行，零集成任何第三方分析、广告或追踪 SDK。</p>
 
       <h4>4. 技术支持联系</h4>
-      <p>如有任何疑问或意见反馈，请联系开发者邮件：<a href="mailto:your-email@example.com">your-email@example.com</a>。</p>
+      <p>如有任何疑问或意见反馈，请联系开发者邮件：<a href="mailto:support@027114.xyz">support@027114.xyz</a>。</p>
     `,
     githubIssueUrl: 'https://github.com/kejee/LUMILumos-iOS/issues/new'
   },
@@ -75,7 +75,7 @@ const APPS_DATA = {
       <p>应用仅在您打开文件选择器或拖入图片时读取该图像文件，对比结束后关闭窗口即释放内存，绝无任何后门网络请求。</p>
 
       <h4>3. 联系开发者</h4>
-      <p>反馈邮件：<a href="mailto:your-email@example.com">your-email@example.com</a>。</p>
+      <p>反馈邮件：<a href="mailto:support@027114.xyz">support@027114.xyz</a>。</p>
     `,
     githubIssueUrl: 'https://github.com/kejee/Diffty/issues/new'
   },
@@ -114,7 +114,7 @@ const APPS_DATA = {
       <p><b>存储权限（相册/媒体文件）：</b>仅用于读取您选择压缩的视频文件，并将压缩后的新视频保存回相册。临时文件在压缩任务完成后会自动彻底删除。</p>
 
       <h4>3. 支持与联系</h4>
-      <p>官方文档与技术支持支持双语。联络邮箱：<a href="mailto:your-email@example.com">your-email@example.com</a>。</p>
+      <p>官方文档与技术支持支持双语。联络邮箱：<a href="mailto:support@027114.xyz">support@027114.xyz</a>。</p>
     `,
     githubIssueUrl: 'https://github.com/kejee/zip_video/issues/new'
   }
@@ -141,6 +141,8 @@ const modalDownloadGrid = document.getElementById('modalDownloadGrid');
 const modalFaqList = document.getElementById('modalFaqList');
 const modalPrivacyContent = document.getElementById('modalPrivacyContent');
 const modalGithubIssueLink = document.getElementById('modalGithubIssueLink');
+const modalSupportEmail = document.getElementById('modalSupportEmail');
+const modalEmailFeedbackLink = document.getElementById('modalEmailFeedbackLink');
 
 // ==========================================================================
 // 3. Modal Activation & Population
@@ -197,8 +199,10 @@ function openAppModal(appId, targetTab = 'overview') {
   // Privacy Policy
   modalPrivacyContent.innerHTML = app.privacy;
 
-  // Issue Links
+  // Issue & Support Email Links
   modalGithubIssueLink.setAttribute('href', app.githubIssueUrl);
+  if (modalSupportEmail) modalSupportEmail.setAttribute('href', 'mailto:support@027114.xyz');
+  if (modalEmailFeedbackLink) modalEmailFeedbackLink.setAttribute('href', 'mailto:support@027114.xyz');
 
   // Switch Active Tab
   switchModalTab(targetTab);
