@@ -212,6 +212,14 @@ function openAppModal(appId, targetTab = 'overview') {
   appModal.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
 
+  // Ensure active tab is centered in the scrollable tab bar on mobile
+  setTimeout(() => {
+    const activeTab = document.querySelector('.modal-tab.active');
+    if (activeTab) {
+      activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, 50);
+
   // Re-render Feather Icons inside Modal
   if (window.feather) {
     feather.replace();
@@ -228,9 +236,12 @@ function closeModal() {
 }
 
 function switchModalTab(tabName) {
+  let activeTabEl = null;
+
   modalTabs.forEach(t => {
     if (t.getAttribute('data-tab') === tabName) {
       t.classList.add('active');
+      activeTabEl = t;
     } else {
       t.classList.remove('active');
     }
@@ -243,6 +254,10 @@ function switchModalTab(tabName) {
       pane.classList.remove('active');
     }
   });
+
+  if (activeTabEl) {
+    activeTabEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
 }
 
 // Modal Tab Switch Listener

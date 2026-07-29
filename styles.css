@@ -820,7 +820,24 @@ body {
   border-bottom: 1px solid var(--border-glass);
   margin-bottom: 24px;
   overflow-x: auto;
-  padding-bottom: 4px;
+  padding-bottom: 6px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+.modal-nav-tabs::-webkit-scrollbar {
+  height: 4px;
+}
+
+.modal-nav-tabs::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-nav-tabs::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
 }
 
 .modal-tab {
@@ -836,6 +853,8 @@ body {
   cursor: pointer;
   border-bottom: 2px solid transparent;
   white-space: nowrap;
+  flex-shrink: 0;
+  scroll-margin: 0 16px;
   transition: var(--transition-fast);
 }
 
@@ -1044,6 +1063,15 @@ body {
   .mobile-menu-btn { display: block; }
   .apps-grid { grid-template-columns: 1fr; }
   .support-card { flex-direction: column; align-items: flex-start; }
-  .modal-container { padding: 20px; }
+  .modal-container { padding: 20px 16px; }
   .modal-header-banner { flex-direction: column; align-items: flex-start; }
+  .modal-nav-tabs {
+    gap: 4px;
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+  }
+  .modal-tab {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
 }
