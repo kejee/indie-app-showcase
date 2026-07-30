@@ -46,6 +46,45 @@ const APPS_DATA = {
     githubIssueUrl: 'https://github.com/kejee/LUMILumos-iOS/issues/new'
   },
 
+  wakecat: {
+    id: 'wakecat',
+    name: 'WakeCat 局域网唤醒',
+    tagline: 'macOS / iOS / iPadOS 跨平台局域网 Wake-on-LAN 远程唤醒 PC / 服务器利器。',
+    logo: 'assets/logos/wakecat.png',
+    version: 'v1.0.0',
+    badges: ['macOS', 'iOS', 'iPadOS', 'Universal', 'SwiftUI'],
+    highlights: [
+      'UDP Magic Packet 魔术包秒级广播，一键唤醒目标 PC 与服务器',
+      'ICMP Ping 局域网连通性实时检测，在线/离线状态动态侦测刷新',
+      '内置完整 Windows BIOS/网卡 WOL 图文配置指南与故障排查建议'
+    ],
+    downloads: [
+      { name: 'Mac App Store', desc: '支持 macOS 13.0+ (Universal Binary)', icon: 'command', url: 'https://apps.apple.com', primary: true },
+      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 16.0+)', icon: 'smartphone', url: 'https://apps.apple.com', primary: false }
+    ],
+    faq: [
+      { q: '点击唤醒后，电脑为什么没有成功开机？', a: '请检查：1. 目标电脑 BIOS 是否已开启 Power On By PCI-E / Wake-on-LAN；2. Windows 网卡属性中是否启用了“允许此设备唤醒计算机”并关闭了“快速启动”；3. 电脑与手机/Mac 是否处于同一局域网或已配置网关广播。' },
+      { q: '设备 IP 或 MAC 地址会被收集吗？', a: '完全不会。所有设备信息 100% 仅保存在您的手机/Mac 本地，应用零上传、零追踪。' }
+    ],
+    privacy: `
+      <h4>1. 核心隐私承诺：100% 本地存储与离线运行</h4>
+      <p>WakeCat 是一款局域网网络工具软件。我们坚信您的网络拓扑与设备配置信息属于严格隐私。</p>
+
+      <h4>2. 设备信息（IP 地址 / MAC 地址）保护</h4>
+      <ul>
+        <li><b>本地存储：</b>您输入的计算机名称、IP 地址、MAC 地址和端口号等数据<strong>100% 仅保存在您的设备本地（NSUserDefaults / Keychain）</strong>。</li>
+        <li><b>零服务器上传：</b>应用不设任何后台服务器，设备信息绝不会被收集、传输或共享给任何第三方。</li>
+      </ul>
+
+      <h4>3. 网络权限说明</h4>
+      <p>应用仅在您触发“唤醒”或“刷新在线状态”时，在您的局域网内部发送 UDP 魔术包 (Magic Packet) 或 ICMP Ping 报文，不向互联网发起任何非必要请求，且零集成第三方追踪 SDK。</p>
+
+      <h4>4. 技术支持联系</h4>
+      <p>如有任何疑问或意见反馈，请联系开发者邮件：<a href="mailto:support@027114.xyz">support@027114.xyz</a>。</p>
+    `,
+    githubIssueUrl: 'https://github.com/kejee/WakeCat2/issues/new'
+  },
+
   diffty: {
     id: 'diffty',
     name: 'Diffty 联动对比',
@@ -162,7 +201,7 @@ function openAppModal(appId, targetTab = 'overview') {
   
   // Icon Image
   modalAppIcon.className = `modal-app-icon custom-logo-wrapper`;
-  modalAppIcon.innerHTML = `<img src="${app.logo}" alt="${app.name}" class="app-logo-img" />`;
+  modalAppIcon.innerHTML = `<img src="${app.logo}" alt="${app.name}" class="app-logo-img" width="64" height="64" decoding="async" />`;
 
   // Badges
   modalAppBadges.innerHTML = app.badges.map(b => `<span class="platform-tag tag-blue">${b}</span>`).join(' ');
