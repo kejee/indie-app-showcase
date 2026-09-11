@@ -12,6 +12,7 @@ const APPS_DATA = {
     name: 'LUMILumos 灵动长图',
     tagline: 'iOS / iPadOS 屏幕录制自动长图缝合工具，秒级无损生成高清长图。',
     logo: 'assets/logos/lumos.png',
+    appStoreId: '6806335286',
     version: 'v1.0.0',
     badges: ['iOS', 'iPadOS', 'Metal 加速', '零拷贝'],
     highlights: [
@@ -20,7 +21,7 @@ const APPS_DATA = {
       '智能识别导航栏与底部固定元素，缝合精准无重影'
     ],
     downloads: [
-      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 15.0+)', icon: 'smartphone', url: 'https://apps.apple.com', primary: true },
+      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 15.0+)', icon: 'smartphone', url: 'https://apps.apple.com/app/id6806335286', primary: true },
       { name: 'TestFlight 内部测试', desc: '体验全新自动化裁切功能', icon: 'zap', url: '#' }
     ],
     faq: [
@@ -188,6 +189,75 @@ const modalEmailFeedbackLink = document.getElementById('modalEmailFeedbackLink')
 // ==========================================================================
 let currentAppId = null;
 
+// --------------------------------------------------------------------------
+// App Store Screenshots: fetched at runtime from the iTunes Lookup API.
+// JSONP (script tag + callback param) bypasses CORS, so this works on any
+// static host such as GitHub Pages. Apps opt in via `appStoreId`
+// (optional `appStoreCountry`, defaults to 'cn').
+// --------------------------------------------------------------------------
+const itunesLookupCache = new Map();
+let itunesJsonpSeq = 0;
+
+function fetchItunesScreenshots(appStoreId, country = 'cn') {
+  const cacheKey = `${appStoreId}:${country}`;
+  if (itunesLookupCache.has(cacheKey)) return itunesLookupCache.get(cacheKey);
+
+  const promise = new Promise((resolve, reject) => {
+    const callbackName = `__itunesJsonp_${++itunesJsonpSeq}_${Date.now()}`;
+    const script = document.createElement('script');
+    let settled = false;
+
+    const cleanup = () => {
+      delete window[callbackName];
+      script.remove();
+      clearTimeout(timer);
+    };
+    const timer = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(new Error('iTunes lookup timeout'));
+    }, 6000);
+
+    window[callbackName] = (data) => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      const urls = (data && data.results && data.results[0] && data.results[0].screenshotUrls) || [];
+      if (urls.length) resolve(urls);
+      else reject(new Error('iTunes lookup returned no screenshots'));
+    };
+
+    script.src = `https://itunes.apple.com/lookup?id=${encodeURIComponent(appStoreId)}&country=${encodeURIComponent(country)}&callback=${callbackName}`;
+    script.onerror = () => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(new Error('iTunes lookup request failed'));
+    };
+    document.head.appendChild(script);
+  });
+
+  // Only successful lookups stay cached; failures retry on the next open.
+  itunesLookupCache.set(cacheKey, promise);
+  promise.catch(() => itunesLookupCache.delete(cacheKey));
+  return promise;
+}
+
+function loadAppStoreScreenshots(app) {
+  const appId = app.id;
+  fetchItunesScreenshots(app.appStoreId, app.appStoreCountry || 'cn')
+    .then(urls => {
+      if (currentAppId !== appId) return; // user already switched to another app
+      modalScreenshots.innerHTML = urls.slice(0, 5).map((url, i) =>
+        `<img class="screenshot-img" src="${url}" alt="${app.name} App Store 截图 ${i + 1}" loading="lazy" decoding="async" onload="this.classList.add('loaded')" />`
+      ).join('');
+    })
+    .catch(() => {
+      // Keep the placeholder mockups as fallback (e.g. app not yet on the store).
+    });
+}
+
 function openAppModal(appId, targetTab = 'overview') {
   const app = APPS_DATA[appId];
   if (!app) return;
@@ -209,12 +279,14 @@ function openAppModal(appId, targetTab = 'overview') {
   // Features List
   modalFeaturesList.innerHTML = app.highlights.map(h => `<li><i data-feather="check"></i> ${h}</li>`).join('');
 
-  // Screenshots Carousel (Mockups)
+  // Screenshots Carousel: placeholder mockups render immediately; real App
+  // Store screenshots replace them asynchronously when available.
   modalScreenshots.innerHTML = `
     <div class="screenshot-mockup"><i data-feather="image"></i><span>应用主界面</span></div>
     <div class="screenshot-mockup"><i data-feather="sliders"></i><span>核心功能设置</span></div>
     <div class="screenshot-mockup"><i data-feather="check-circle"></i><span>处理结果展示</span></div>
   `;
+  if (app.appStoreId) loadAppStoreScreenshots(app);
 
   // Downloads Grid
   modalDownloadGrid.innerHTML = app.downloads.map(d => `
