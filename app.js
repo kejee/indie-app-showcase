@@ -185,9 +185,124 @@ const modalSupportEmail = document.getElementById('modalSupportEmail');
 const modalEmailFeedbackLink = document.getElementById('modalEmailFeedbackLink');
 
 // ==========================================================================
-// 3. Modal Activation & Population
+// 3. Modal Activation, URL Sync & Permalink Copy
 // ==========================================================================
 let currentAppId = null;
+let currentTabName = 'overview';
+
+const VALID_TABS = new Set(['overview', 'download', 'support', 'privacy', 'issues']);
+const LEGACY_HASH_TAB_MAP = {
+  '#privacy-': 'privacy',
+  '#support-': 'support',
+  '#download-': 'download',
+  '#issues-': 'issues',
+  '#app-': 'overview'
+};
+
+function buildPermalink(appId, tabName = 'overview') {
+  const url = new URL(window.location.href);
+  url.hash = '';
+  url.searchParams.set('app', appId);
+  if (tabName && tabName !== 'overview') {
+    url.searchParams.set('tab', tabName);
+  } else {
+    url.searchParams.delete('tab');
+  }
+  return url.toString();
+}
+
+function syncUrlAndPermalinks(appId, tabName = 'overview') {
+  const url = new URL(window.location.href);
+  let permalink = '';
+
+  if (appId) {
+    permalink = buildPermalink(appId, tabName);
+    url.href = permalink;
+  } else {
+    url.searchParams.delete('app');
+    url.searchParams.delete('tab');
+    if (Object.keys(LEGACY_HASH_TAB_MAP).some(prefix => url.hash.startsWith(prefix))) {
+      url.hash = '';
+    }
+  }
+
+  document.querySelectorAll('[data-permalink-text]').forEach(el => {
+    el.textContent = permalink;
+  });
+  resetCopyButtons();
+
+  try {
+    history.replaceState(null, '', url.toString());
+  } catch (_) {
+    // Ignore SecurityError when previewed directly via file:// in strict browsers.
+  }
+}
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (_) {
+      // Fallback to execCommand below
+    }
+  }
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  document.body.appendChild(textarea);
+  textarea.select();
+  let ok = false;
+  try {
+    ok = document.execCommand('copy');
+  } finally {
+    textarea.remove();
+  }
+  return ok;
+}
+
+function setCopyButtonState(btn, iconName, labelText, copied) {
+  const textEl = btn.querySelector('.copy-btn-text');
+  const iconEl = btn.querySelector('svg, i');
+  if (textEl) textEl.textContent = labelText;
+  if (iconEl) {
+    const nextIcon = document.createElement('i');
+    nextIcon.setAttribute('data-feather', iconName);
+    iconEl.replaceWith(nextIcon);
+    if (window.feather) feather.replace();
+  }
+  btn.classList.toggle('copied', copied);
+}
+
+function resetCopyButtons() {
+  document.querySelectorAll('[data-copy-link]').forEach(btn => {
+    if (!btn.classList.contains('copied')) return;
+    clearTimeout(btn._copyTimer);
+    setCopyButtonState(
+      btn,
+      btn.dataset.defaultIcon || (btn.classList.contains('modal-copy-btn') ? 'link' : 'copy'),
+      btn.dataset.defaultLabel || '复制',
+      false
+    );
+  });
+}
+
+function flashCopySuccess(btn) {
+  if (!btn.dataset.defaultLabel) {
+    const textEl = btn.querySelector('.copy-btn-text');
+    btn.dataset.defaultLabel = textEl ? textEl.textContent : '复制';
+  }
+  if (!btn.dataset.defaultIcon) {
+    btn.dataset.defaultIcon = btn.classList.contains('modal-copy-btn') ? 'link' : 'copy';
+  }
+  clearTimeout(btn._copyTimer);
+  setCopyButtonState(btn, 'check', '已复制', true);
+  btn._copyTimer = setTimeout(() => {
+    setCopyButtonState(btn, btn.dataset.defaultIcon, btn.dataset.defaultLabel, false);
+  }, 2000);
+}
 
 // --------------------------------------------------------------------------
 // App Store Screenshots: fetched at runtime from the iTunes Lookup API.
@@ -341,16 +456,18 @@ function closeModal() {
   appModal.classList.remove('active');
   appModal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
-  
-  // Clear Hash without page refresh
-  history.pushState("", document.title, window.location.pathname + window.location.search);
+  currentAppId = null;
+
+  syncUrlAndPermalinks(null);
 }
 
 function switchModalTab(tabName) {
+  const safeTab = VALID_TABS.has(tabName) ? tabName : 'overview';
+  currentTabName = safeTab;
   let activeTabEl = null;
 
   modalTabs.forEach(t => {
-    if (t.getAttribute('data-tab') === tabName) {
+    if (t.getAttribute('data-tab') === safeTab) {
       t.classList.add('active');
       activeTabEl = t;
     } else {
@@ -359,12 +476,16 @@ function switchModalTab(tabName) {
   });
 
   modalPanes.forEach(pane => {
-    if (pane.id === `pane-${tabName}`) {
+    if (pane.id === `pane-${safeTab}`) {
       pane.classList.add('active');
     } else {
       pane.classList.remove('active');
     }
   });
+
+  if (currentAppId) {
+    syncUrlAndPermalinks(currentAppId, safeTab);
+  }
 
   if (activeTabEl) {
     activeTabEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
@@ -392,8 +513,19 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Attach Click Listeners to App Cards
+// Attach Click Listeners to App Cards & Copy Permalink Buttons
 document.addEventListener('click', (e) => {
+  const copyBtn = e.target.closest('[data-copy-link]');
+  if (copyBtn) {
+    const urlToCopy = currentAppId
+      ? buildPermalink(currentAppId, currentTabName)
+      : window.location.href;
+    copyTextToClipboard(urlToCopy).then((ok) => {
+      if (ok) flashCopySuccess(copyBtn);
+    });
+    return;
+  }
+
   const detailsBtn = e.target.closest('.open-details-btn');
   if (detailsBtn) {
     const appId = detailsBtn.getAttribute('data-appid');
@@ -417,22 +549,28 @@ document.addEventListener('click', (e) => {
 });
 
 // ==========================================================================
-// 4. Hash Routing Support (Critical for App Store Privacy URL Audits)
+// 4. URL Routing Support (Query Params + Legacy Hash Compatibility)
 // ==========================================================================
-function checkHashRoute() {
+function resolveRouteFromLocation() {
+  // Primary format: ?app=<id>&tab=<tab>
+  const params = new URLSearchParams(window.location.search);
+  const queryAppId = params.get('app');
+  if (queryAppId && APPS_DATA[queryAppId]) {
+    const queryTab = params.get('tab') || 'overview';
+    openAppModal(queryAppId, VALID_TABS.has(queryTab) ? queryTab : 'overview');
+    return;
+  }
+
+  // Legacy format: #privacy-<id>, #support-<id>, #app-<id> (keep backward compatible)
   const hash = window.location.hash;
   if (!hash) return;
 
-  // Formats: #privacy-lumos , #privacy-diffty , #privacy-zipvideo
-  if (hash.startsWith('#privacy-')) {
-    const appId = hash.replace('#privacy-', '');
-    if (APPS_DATA[appId]) openAppModal(appId, 'privacy');
-  } else if (hash.startsWith('#support-')) {
-    const appId = hash.replace('#support-', '');
-    if (APPS_DATA[appId]) openAppModal(appId, 'support');
-  } else if (hash.startsWith('#app-')) {
-    const appId = hash.replace('#app-', '');
-    if (APPS_DATA[appId]) openAppModal(appId, 'overview');
+  for (const [prefix, tab] of Object.entries(LEGACY_HASH_TAB_MAP)) {
+    if (hash.startsWith(prefix)) {
+      const appId = hash.slice(prefix.length);
+      if (APPS_DATA[appId]) openAppModal(appId, tab);
+      return;
+    }
   }
 }
 
@@ -465,7 +603,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.feather) {
     feather.replace();
   }
-  checkHashRoute();
+  resolveRouteFromLocation();
 });
 
-window.addEventListener('hashchange', checkHashRoute);
+window.addEventListener('hashchange', resolveRouteFromLocation);
+window.addEventListener('popstate', resolveRouteFromLocation);

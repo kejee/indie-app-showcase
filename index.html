@@ -321,9 +321,15 @@
   <!-- App Detail / Support / Privacy Modal System -->
   <div class="modal-overlay" id="appModal" aria-hidden="true">
     <div class="modal-container glass-card">
-      <button class="modal-close-btn" id="modalCloseBtn" aria-label="关闭窗口">
-        <i data-feather="x"></i>
-      </button>
+      <div class="modal-top-actions">
+        <button type="button" class="modal-copy-btn" data-copy-link title="复制当前页面直达链接">
+          <i data-feather="link"></i>
+          <span class="copy-btn-text">复制链接</span>
+        </button>
+        <button type="button" class="modal-close-btn" id="modalCloseBtn" aria-label="关闭窗口">
+          <i data-feather="x"></i>
+        </button>
+      </div>
 
       <!-- Modal Header Banner -->
       <div class="modal-header-banner">
@@ -376,6 +382,18 @@
 
         <!-- Tab 3: Support & FAQ -->
         <div class="modal-tab-pane" id="pane-support">
+          <div class="permalink-strip">
+            <div class="permalink-info">
+              <i data-feather="link-2"></i>
+              <span class="permalink-label">直达地址</span>
+              <code class="permalink-url" data-permalink-text></code>
+            </div>
+            <button type="button" class="permalink-copy-btn" data-copy-link title="复制技术支持直达链接">
+              <i data-feather="copy"></i>
+              <span class="copy-btn-text">复制</span>
+            </button>
+          </div>
+
           <h3><i data-feather="help-circle"></i> 常见问题 (FAQ)</h3>
           <div class="faq-accordion" id="modalFaqList">
             <!-- Dynamic FAQ -->
@@ -395,6 +413,18 @@
           <div class="privacy-header">
             <h3><i data-feather="shield"></i> 隐私协议 (Privacy Policy)</h3>
             <span class="update-date" id="modalPrivacyUpdate">更新于: 2026年7月</span>
+          </div>
+
+          <div class="permalink-strip">
+            <div class="permalink-info">
+              <i data-feather="link-2"></i>
+              <span class="permalink-label">直达地址</span>
+              <code class="permalink-url" data-permalink-text></code>
+            </div>
+            <button type="button" class="permalink-copy-btn" data-copy-link title="复制隐私协议直达链接">
+              <i data-feather="copy"></i>
+              <span class="copy-btn-text">复制</span>
+            </button>
           </div>
           
           <div class="privacy-document" id="modalPrivacyContent">
