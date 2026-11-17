@@ -28,21 +28,32 @@ const APPS_DATA = {
       { q: '录屏产生的视频文件会占用大量手机空间吗？', a: '不会。LUMILumos 使用内存零拷贝帧流技术，拼接完成后临时录屏缓存会自动彻底删除。' },
       { q: '长图缝合失败或出现重复怎么办？', a: '可以在调整界面手动设置顶部/底部忽略区域，重新触发自动缝合计算。' }
     ],
+    privacyUpdatedAt: '2026年11月17日',
     privacy: `
-      <h4>1. 核心隐私承诺：100% 本地处理</h4>
-      <p>LUMILumos 是一款纯本地的长图拼接工具。我们极其重视您的屏幕隐私。</p>
+      <h4>1. 我们不收集任何个人信息</h4>
+      <p>LUMILumos 不收集、不存储、不传输任何可识别您身份的个人信息，也没有账号系统。所有处理均在您的设备本地完成，绝不会上传至任何服务器。</p>
 
       <h4>2. 屏幕录制与相册访问</h4>
       <ul>
-        <li><b>屏幕录制权限：</b>仅在您手动触发录屏长图拼接时使用，录屏画面直接在设备内存中转为长图，<strong>绝不会上传至任何服务器</strong>。</li>
-        <li><b>相册存储权限：</b>用于将生成的最终长图保存至您的系统相册。</li>
+        <li><b>屏幕录制（广播）权限：</b>仅在您手动触发"录屏长图"时使用。录屏画面直接进入设备内存并参与拼接，不写入云端。</li>
+        <li><b>相册读取权限：</b>仅在"视频台词"功能中选择视频时读取您指定的视频帧，用于设备端 OCR 识别。</li>
+        <li><b>相册写入权限：</b>用于把生成的长图或导出的视频帧保存到您的相册。</li>
       </ul>
 
       <h4>3. 网络与跟踪说明</h4>
-      <p>应用完全支持离线运行，零集成任何第三方分析、广告或追踪 SDK。</p>
+      <p>应用完全支持离线运行，零集成任何第三方分析、广告或追踪 SDK，不进行跨 App 跟踪。</p>
 
-      <h4>4. 技术支持联系</h4>
-      <p>如有任何疑问或意见反馈，请联系开发者邮件：<a href="mailto:support@027114.xyz">support@027114.xyz</a>。</p>
+      <h4>4. 数据留存与删除</h4>
+      <p>由于本应用不收集任何数据，服务端不存在您的任何数据副本。设备上产生的临时文件（录屏缓存、中间帧）会在拼接完成或应用退出时自动清除；您也可以随时在 App 内「媒体库 → 清理缓存」手动清除，或直接卸载应用，所有本地数据将随之删除。</p>
+
+      <h4>5. 权限撤回与同意管理</h4>
+      <p>屏幕录制与相册权限均由 iOS 系统管理。您可以随时前往「设置 → 隐私与安全性 → 屏幕录制 / 照片」关闭对本应用的授权；撤回后对应功能将不可用，但不影响其他功能。</p>
+
+      <h4>6. 技术支持联系</h4>
+      <p>如有任何疑问，请联系开发者邮箱：<a href="mailto:support@027114.xyz">support@027114.xyz</a>。</p>
+
+      <h4>7. 生效日期</h4>
+      <p>本隐私政策最后更新于 2026 年 11 月 17 日。</p>
     `,
     githubIssueUrl: 'https://github.com/kejee/LUMILumos-iOS/issues/new'
   },
@@ -179,6 +190,7 @@ const modalScreenshots = document.getElementById('modalScreenshots');
 const modalFeaturesList = document.getElementById('modalFeaturesList');
 const modalDownloadGrid = document.getElementById('modalDownloadGrid');
 const modalFaqList = document.getElementById('modalFaqList');
+const modalPrivacyUpdate = document.getElementById('modalPrivacyUpdate');
 const modalPrivacyContent = document.getElementById('modalPrivacyContent');
 const modalGithubIssueLink = document.getElementById('modalGithubIssueLink');
 const modalSupportEmail = document.getElementById('modalSupportEmail');
@@ -431,6 +443,9 @@ function openAppModal(appId, targetTab = 'overview') {
   `).join('');
 
   // Privacy Policy
+  if (modalPrivacyUpdate) {
+    modalPrivacyUpdate.textContent = `更新于: ${app.privacyUpdatedAt || '2026年7月'}`;
+  }
   modalPrivacyContent.innerHTML = app.privacy;
 
   // Issue & Support Email Links

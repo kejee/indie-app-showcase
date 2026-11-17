@@ -1149,6 +1149,24 @@ body {
   margin: 16px 0 8px 0;
 }
 
+.privacy-document ul {
+  padding-left: 1.35rem;
+  margin: 8px 0;
+}
+
+.privacy-document li {
+  margin-bottom: 6px;
+}
+
+.privacy-document a {
+  color: var(--accent-blue);
+  text-decoration: none;
+}
+
+.privacy-document a:hover {
+  text-decoration: underline;
+}
+
 /* Issues & Feedback Grid */
 .issue-options-grid {
   display: grid;
