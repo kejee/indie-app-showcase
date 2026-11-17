@@ -21,8 +21,7 @@ const APPS_DATA = {
       '智能识别导航栏与底部固定元素，缝合精准无重影'
     ],
     downloads: [
-      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 15.0+)', icon: 'smartphone', url: 'https://apps.apple.com/app/id6806335286', primary: true },
-      { name: 'TestFlight 内部测试', desc: '体验全新自动化裁切功能', icon: 'zap', url: '#' }
+      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 16.0+)', icon: 'smartphone', url: 'https://apps.apple.com/app/id6806335286', primary: true }
     ],
     faq: [
       { q: '录屏产生的视频文件会占用大量手机空间吗？', a: '不会。LUMILumos 使用内存零拷贝帧流技术，拼接完成后临时录屏缓存会自动彻底删除。' },
@@ -54,6 +53,34 @@ const APPS_DATA = {
 
       <h4>7. 生效日期</h4>
       <p>本隐私政策最后更新于 2026 年 11 月 17 日。</p>
+
+      <hr class="privacy-divider" />
+      <p class="privacy-lang-label">English Version</p>
+
+      <h4>1. We do not collect any personal information</h4>
+      <p>LUMILumos does not collect, store or transmit any personally identifiable information, and there is no account system. All processing happens locally on your device and is never uploaded to any server.</p>
+
+      <h4>2. Screen Recording and Photo Library Access</h4>
+      <ul>
+        <li><b>Screen Recording (Broadcast) permission:</b> used only when you start a "long screenshot" session. Captured frames are processed in the device's memory and never leave the device.</li>
+        <li><b>Photo Library read access:</b> used only when you pick a video in the dialogue feature, so that its frames can be read and recognised on device.</li>
+        <li><b>Photo Library write access:</b> used only to save the stitched image or the exported frames to your photo library.</li>
+      </ul>
+
+      <h4>3. Network and Tracking</h4>
+      <p>The app works fully offline. It contains no third-party analytics, advertising or tracking SDK, and it does not track you across apps or websites.</p>
+
+      <h4>4. Data Retention and Deletion</h4>
+      <p>Because no data is collected, no copy of your data exists on any server. Temporary files created on the device (recording cache and intermediate frames) are removed automatically when stitching finishes or when the app quits. You can also clear them at any time in the app under "Media Library → Clear Cache", or simply delete the app, which removes all local data.</p>
+
+      <h4>5. Withdrawing Permission</h4>
+      <p>Screen Recording and Photo Library permissions are controlled by iOS. You can revoke them at any time in Settings → Privacy &amp; Security → Screen Recording or Photos. Revoking a permission disables only the related feature; the rest of the app keeps working.</p>
+
+      <h4>6. Contact</h4>
+      <p>If you have any questions, contact the developer at <a href="mailto:support@027114.xyz">support@027114.xyz</a>.</p>
+
+      <h4>7. Effective Date</h4>
+      <p>This privacy policy was last updated on November 17, 2026.</p>
     `,
     githubIssueUrl: 'https://github.com/kejee/LUMILumos-iOS/issues/new'
   },
@@ -111,8 +138,7 @@ const APPS_DATA = {
     ],
     downloads: [
       { name: 'Mac App Store', desc: '支持 macOS 12.0+ (Universal Binary)', icon: 'command', url: 'https://apps.apple.com', primary: true },
-      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 15.0+)', icon: 'smartphone', url: 'https://apps.apple.com', primary: false },
-      { name: 'macOS Direct .DMG', desc: '独立签名公证版 (v1.2.0)', icon: 'download', url: '#' }
+      { name: 'App Store (iOS / iPadOS)', desc: '支持 iPhone & iPad (iOS 15.0+)', icon: 'smartphone', url: 'https://apps.apple.com', primary: false }
     ],
     faq: [
       { q: '两张对比图片尺寸不一致怎么办？', a: 'Diffy 控制条提供“一键对齐”按钮，会自动对齐两图中心点并按等比例拉伸缩放。' },
@@ -144,9 +170,8 @@ const APPS_DATA = {
       '零第三方 SDK 追踪，无广告干扰，支持批量压缩'
     ],
     downloads: [
-      { name: 'App Store (iOS / iPadOS)', desc: '支持 iOS 15.0 或更高版本', icon: 'apple', url: 'https://apps.apple.com', primary: true },
-      { name: 'Google Play (Android)', desc: '支持 Android 8.0 或更高版本', icon: 'smartphone', url: 'https://play.google.com', primary: false },
-      { name: 'Android Direct APK', desc: '无 Google 框架通用安装包', icon: 'download', url: '#' }
+      { name: 'App Store (iOS / iPadOS)', desc: '支持 iOS 15.0 或更高版本', icon: 'smartphone', url: 'https://apps.apple.com', primary: true },
+      { name: 'Google Play (Android)', desc: '支持 Android 8.0 或更高版本', icon: 'smartphone', url: 'https://play.google.com', primary: false }
     ],
     faq: [
       { q: '视频压缩会导致画质严重损坏吗？', a: 'ZipVideo 采用智能帧率与码率压点算法，在大幅降低体积的同时最大化保留人眼视觉清晰度。' },
@@ -424,15 +449,23 @@ function openAppModal(appId, targetTab = 'overview') {
   if (app.appStoreId) loadAppStoreScreenshots(app);
 
   // Downloads Grid
-  modalDownloadGrid.innerHTML = app.downloads.map(d => `
-    <div class="download-card">
-      <div class="download-card-title">${d.name}</div>
-      <div class="download-card-desc">${d.desc}</div>
-      <a href="${d.url}" target="_blank" class="btn ${d.primary ? 'btn-primary' : 'btn-secondary'}">
-        <i data-feather="${d.icon}"></i> 立即下载
-      </a>
-    </div>
-  `).join('');
+  modalDownloadGrid.innerHTML = app.downloads.map(d => {
+    const hasValidUrl = Boolean(d.url && d.url !== '#');
+    const actionHtml = hasValidUrl
+      ? `<a href="${d.url}" target="_blank" rel="noopener noreferrer" class="btn ${d.primary ? 'btn-primary' : 'btn-secondary'}">
+           <i data-feather="${d.icon}"></i> 立即下载
+         </a>`
+      : `<span class="btn btn-secondary btn-disabled" aria-disabled="true">
+           <i data-feather="${d.icon}"></i> 敬请期待
+         </span>`;
+    return `
+      <div class="download-card">
+        <div class="download-card-title">${d.name}</div>
+        <div class="download-card-desc">${d.desc}</div>
+        ${actionHtml}
+      </div>
+    `;
+  }).join('');
 
   // FAQ Accordion
   modalFaqList.innerHTML = app.faq.map(item => `

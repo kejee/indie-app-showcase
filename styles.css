@@ -563,6 +563,14 @@ body {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.btn-disabled,
+.btn-disabled:hover {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: rgba(255, 255, 255, 0.05);
+  transform: none;
+}
+
 .quick-links {
   display: flex;
   gap: 8px;
@@ -1165,6 +1173,21 @@ body {
 
 .privacy-document a:hover {
   text-decoration: underline;
+}
+
+.privacy-divider {
+  border: none;
+  border-top: 1px solid var(--border-glass);
+  margin: 24px 0 18px 0;
+}
+
+.privacy-lang-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  margin-bottom: 8px;
 }
 
 /* Issues & Feedback Grid */
