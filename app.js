@@ -1,6 +1,6 @@
 /**
  * Alex Studio - Indie App Showcase JavaScript Logic
- * App Registry for Lumos, Diffty, and ZipVideo.
+ * App Registry for Lumos, WakeCat, Diffy, and ZipVideo.
  */
 
 // ==========================================================================
@@ -86,11 +86,11 @@ const APPS_DATA = {
     githubIssueUrl: 'https://github.com/kejee/WakeCat2/issues/new'
   },
 
-  diffty: {
-    id: 'diffty',
-    name: 'Diffty 联动对比',
+  diffy: {
+    id: 'diffy',
+    name: 'Diffy 联动对比',
     tagline: 'macOS / iOS / iPadOS 跨平台双图联动同步对比利器。',
-    logo: 'assets/logos/diffty.png',
+    logo: 'assets/logos/diffy.png',
     version: 'v1.2.0',
     badges: ['macOS', 'iOS', 'iPadOS', 'Universal', 'SwiftUI'],
     highlights: [
@@ -104,12 +104,12 @@ const APPS_DATA = {
       { name: 'macOS Direct .DMG', desc: '独立签名公证版 (v1.2.0)', icon: 'download', url: '#' }
     ],
     faq: [
-      { q: '两张对比图片尺寸不一致怎么办？', a: 'Diffty 控制条提供“一键对齐”按钮，会自动对齐两图中心点并按等比例拉伸缩放。' },
+      { q: '两张对比图片尺寸不一致怎么办？', a: 'Diffy 控制条提供“一键对齐”按钮，会自动对齐两图中心点并按等比例拉伸缩放。' },
       { q: 'macOS 端支持直接拖拽图片吗？', a: '支持。您可以直接从 Finder 或其他软件中把两张图片拖入窗口立即开启对比。' }
     ],
     privacy: `
       <h4>1. 图像数据安全声明</h4>
-      <p>Diffty 是一款专注于本地视觉对比的工具软件。所有导入的对比图像<strong>100% 仅保存在您的设备内存中</strong>。</p>
+      <p>Diffy 是一款专注于本地视觉对比的工具软件。所有导入的对比图像<strong>100% 仅保存在您的设备内存中</strong>。</p>
 
       <h4>2. 存储与网络权限</h4>
       <p>应用仅在您打开文件选择器或拖入图片时读取该图像文件，对比结束后关闭窗口即释放内存，绝无任何后门网络请求。</p>
@@ -191,6 +191,7 @@ let currentAppId = null;
 let currentTabName = 'overview';
 
 const VALID_TABS = new Set(['overview', 'download', 'support', 'privacy', 'issues']);
+const APP_ID_ALIASES = { diffty: 'diffy' };
 const LEGACY_HASH_TAB_MAP = {
   '#privacy-': 'privacy',
   '#support-': 'support',
@@ -198,6 +199,12 @@ const LEGACY_HASH_TAB_MAP = {
   '#issues-': 'issues',
   '#app-': 'overview'
 };
+
+function normalizeAppId(rawId) {
+  if (!rawId) return null;
+  const resolved = APP_ID_ALIASES[rawId] || rawId;
+  return APPS_DATA[resolved] ? resolved : null;
+}
 
 function buildPermalink(appId, tabName = 'overview') {
   const url = new URL(window.location.href);
@@ -374,10 +381,11 @@ function loadAppStoreScreenshots(app) {
 }
 
 function openAppModal(appId, targetTab = 'overview') {
-  const app = APPS_DATA[appId];
+  const normalizedId = normalizeAppId(appId);
+  const app = normalizedId ? APPS_DATA[normalizedId] : null;
   if (!app) return;
 
-  currentAppId = appId;
+  currentAppId = normalizedId;
 
   // Set Header Meta
   modalAppTitle.textContent = app.name;
@@ -554,8 +562,8 @@ document.addEventListener('click', (e) => {
 function resolveRouteFromLocation() {
   // Primary format: ?app=<id>&tab=<tab>
   const params = new URLSearchParams(window.location.search);
-  const queryAppId = params.get('app');
-  if (queryAppId && APPS_DATA[queryAppId]) {
+  const queryAppId = normalizeAppId(params.get('app'));
+  if (queryAppId) {
     const queryTab = params.get('tab') || 'overview';
     openAppModal(queryAppId, VALID_TABS.has(queryTab) ? queryTab : 'overview');
     return;
@@ -567,8 +575,8 @@ function resolveRouteFromLocation() {
 
   for (const [prefix, tab] of Object.entries(LEGACY_HASH_TAB_MAP)) {
     if (hash.startsWith(prefix)) {
-      const appId = hash.slice(prefix.length);
-      if (APPS_DATA[appId]) openAppModal(appId, tab);
+      const appId = normalizeAppId(hash.slice(prefix.length));
+      if (appId) openAppModal(appId, tab);
       return;
     }
   }
